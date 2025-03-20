@@ -33,7 +33,10 @@ function HomePage() {
 					<div
 						className="card"
 						key={room.id}
-						onClick={() => navigate(`/ws/room/${room.id}`)}
+						onClick={() => {
+							localStorage.setItem("roomId", room.id);
+							navigate(`/ws/room/${room.id}`);
+						}}
 					>
 						<div className="card-border-top"></div>
 						<div className="img">

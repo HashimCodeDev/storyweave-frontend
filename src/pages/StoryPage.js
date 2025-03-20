@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import StoryDisplay from "../components/StoryDisplay";
 import InputForm from "../components/InputForm";
-import TwistVoting from "../components/TwistVoting";
 
 function StoryPage({ onSend }) {
 	const [story, setStory] = useState("");
@@ -16,7 +15,7 @@ function StoryPage({ onSend }) {
 		setUsername(user);
 
 		// Hardcode the room ID for now; you can make this dynamic later
-		const roomId = "room1";
+		const roomId = localStorage.getItem("roomId");
 		const socket = new WebSocket(
 			`ws://localhost:8000/ws/${roomId}?username=${username}`
 		);
@@ -24,6 +23,8 @@ function StoryPage({ onSend }) {
 
 		socket.onopen = () => {
 			console.log("WebSocket connected");
+			// Request the latest story when connected
+			socket.send(JSON.stringify({ type: "get_story" }));
 		};
 
 		socket.onmessage = (event) => {
@@ -53,15 +54,16 @@ function StoryPage({ onSend }) {
 		};
 	}, [username]);
 
+	useEffect(() => {
+		// Append twist to story when twist is updated
+		if (twist) {
+			setStory((prevStory) => `${prevStory} ${twist}`);
+		}
+	}, [twist]);
+
 	const sendAddition = (text) => {
 		if (ws) {
 			ws.send(JSON.stringify({ type: "add", text }));
-		}
-	};
-
-	const sendVote = (vote) => {
-		if (ws && twistId) {
-			ws.send(JSON.stringify({ type: "vote", vote, twist_id: twistId }));
 		}
 	};
 
@@ -70,7 +72,6 @@ function StoryPage({ onSend }) {
 			<h1 style={{ color: "white" }}>StoryWeave</h1>
 			<StoryDisplay story={story} />
 			<InputForm onSend={sendAddition} />
-			{twist && <TwistVoting twist={twist} onVote={sendVote} />}
 		</div>
 	);
 }
