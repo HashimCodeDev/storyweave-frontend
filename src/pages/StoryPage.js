@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import StoryDisplay from "./components/StoryDisplay";
-import InputForm from "./components/InputForm";
-import TwistVoting from "./components/TwistVoting";
+import StoryDisplay from "../components/StoryDisplay";
+import InputForm from "../components/InputForm";
+import TwistVoting from "../components/TwistVoting";
 
 function StoryPage({ onSend }) {
 	const [story, setStory] = useState("");
@@ -12,7 +12,7 @@ function StoryPage({ onSend }) {
 
 	useEffect(() => {
 		// Prompt user for a username when the app loads
-		const user = prompt("Enter your username");
+		const user = localStorage.getItem("username");
 		setUsername(user);
 
 		// Hardcode the room ID for now; you can make this dynamic later

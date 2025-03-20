@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./styles/Login.css";
+import "../styles/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +27,7 @@ const Login = () => {
 
 			const { access_token } = response.data;
 
+			localStorage.setItem("username", email);
 			localStorage.setItem("token", access_token);
 			navigate("/story");
 		} catch (err) {
