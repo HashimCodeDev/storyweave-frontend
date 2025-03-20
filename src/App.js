@@ -19,7 +19,7 @@ function App() {
 		// Hardcode the room ID for now; you can make this dynamic later
 		const roomId = "room1";
 		const socket = new WebSocket(
-			`ws://localhost:8000/ws/${roomId}?username=${user}`
+			`ws://localhost:8000/ws/${roomId}?username=${username}`
 		);
 		setWs(socket);
 
@@ -52,7 +52,7 @@ function App() {
 		return () => {
 			socket.close();
 		};
-	}, []);
+	}, [username]);
 
 	const sendAddition = (text) => {
 		if (ws) {
