@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "../styles/HomePage.css";
 
 function HomePage() {
 	const [rooms, setRooms] = useState([]); // Initialize rooms state as an empty array
 	const [loading, setLoading] = useState(true); // A loading state to manage UI
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		// Fetch rooms data with axios
@@ -24,17 +27,31 @@ function HomePage() {
 	}
 
 	return (
-		<div>
+		<div className="home-container">
 			{rooms.length > 0 ? (
 				rooms.map((room) => (
-					<div key={room.id}>
-						<h3>{room.name}</h3>
-						<p>{}</p>
+					<div
+						className="card"
+						key={room.id}
+						onClick={() => navigate(`/ws/room/${room.id}`)}
+					>
+						<div className="card-border-top"></div>
+						<div className="img"></div>
+						<span> {room.name}</span>
+						{/* <p className="job"> Job Title</p> */}
+						<button> Join</button>
 					</div>
 				))
 			) : (
 				<p>No rooms available</p>
 			)}
+			<div className="card">
+				<div className="card-border-top"></div>
+				<div className="img"></div>
+				<span>Create New Room</span>
+				{/* <p className="job"> Job Title</p> */}
+				<button>Create</button>
+			</div>
 		</div>
 	);
 }

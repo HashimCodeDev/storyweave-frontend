@@ -29,7 +29,7 @@ const Login = () => {
 
 			localStorage.setItem("username", email);
 			localStorage.setItem("token", access_token);
-			navigate("/story");
+			navigate("/home");
 		} catch (err) {
 			console.error("Login error:", err);
 
