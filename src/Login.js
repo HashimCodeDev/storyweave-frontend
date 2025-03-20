@@ -7,7 +7,6 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
-
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -15,25 +14,32 @@ const Login = () => {
 		setError(null); // Clear previous errors
 
 		try {
-			const response = await axios.post("http://127.0.0.1:8000/login", {
-				username: email,
-				password: password,
-			});
+			const response = await axios.post(
+				"http://127.0.0.1:8000/login",
+				{
+					username: email,
+					password: password,
+				},
+				{
+					headers: { "Content-Type": "application/json" },
+				}
+			);
 
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.detail || "Login failed");
-			}
-
-			const data = await response.json();
-			const { access_token } = data;
+			const { access_token } = response.data;
 
 			localStorage.setItem("token", access_token);
 			navigate("/story");
 		} catch (err) {
-			setError(error.response?.data?.detail || "An error occurred");
+			console.error("Login error:", err);
+
+			if (err.response) {
+				setError(err.response.data?.detail || "Invalid response from server");
+			} else {
+				setError("Could not connect to server. Please try again.");
+			}
 		}
 	};
+
 	return (
 		<div className="login-container">
 			<form className="form" onSubmit={handleSubmit}>
@@ -46,20 +52,13 @@ const Login = () => {
 				<div className="input-container">
 					<input
 						placeholder="Username"
-						type="username"
+						type="text"
 						className="input-mail"
-						value={email} // Controlled input
-						onChange={(e) => setEmail(e.target.value)} // Update state on change
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 						required
 					/>
-					<span> </span>
 				</div>
-				<section className="bg-stars">
-					<span className="star" />
-					<span className="star" />
-					<span className="star" />
-					<span className="star" />
-				</section>
 				<div className="input-container">
 					<input
 						placeholder="Password"
@@ -71,13 +70,18 @@ const Login = () => {
 					/>
 				</div>
 
-				{error && <p className="error">{error}</p>}
+				{error && (
+					<p className="error" role="alert">
+						{error}
+					</p>
+				)}
+
 				<button className="submit" type="submit">
 					<span className="sign-text">Sign in</span>
 				</button>
 				<p className="signup-link">
 					No account?
-					<a className="up" href>
+					<a className="up" href="/register">
 						Sign up!
 					</a>
 				</p>
@@ -85,4 +89,5 @@ const Login = () => {
 		</div>
 	);
 };
+
 export default Login;
