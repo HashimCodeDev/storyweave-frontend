@@ -7,6 +7,8 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
+	const url = process.env.BACKEND_URL || "http://localhost:8000";
+
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -15,7 +17,7 @@ const Login = () => {
 
 		try {
 			const response = await axios.post(
-				"http://127.0.0.1:8000/login",
+				`${url}/login`,
 				{
 					username: email,
 					password: password,

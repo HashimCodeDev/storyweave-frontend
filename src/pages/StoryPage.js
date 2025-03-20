@@ -8,6 +8,7 @@ function StoryPage({ onSend }) {
 	const [twistId, setTwistId] = useState(null);
 	const [username, setUsername] = useState("");
 	const [ws, setWs] = useState(null);
+	const url = process.env.BACKEND_URL || "http://localhost:8000";
 
 	useEffect(() => {
 		// Prompt user for a username when the app loads
@@ -17,7 +18,7 @@ function StoryPage({ onSend }) {
 		// Hardcode the room ID for now; you can make this dynamic later
 		const roomId = localStorage.getItem("roomId");
 		const socket = new WebSocket(
-			`ws://localhost:8000/ws/${roomId}?username=${username}`
+			`ws://${url}/ws/${roomId}?username=${username}`
 		);
 		setWs(socket);
 
@@ -52,7 +53,7 @@ function StoryPage({ onSend }) {
 		return () => {
 			socket.close();
 		};
-	}, [username]);
+	}, [username, url]);
 
 	useEffect(() => {
 		// Append twist to story when twist is updated

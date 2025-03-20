@@ -4,6 +4,8 @@ import "./App.css";
 import LoginPage from "./pages/Login";
 import StoryPage from "./pages/StoryPage";
 import HomePage from "./pages/HomePage";
+import Register from "./pages/Register";
+
 import "./App.css";
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
 					<Route path="/story" element={<StoryPage />} />
 					<Route path="/home" element={<HomePage />} />
 					<Route path="/ws/room/:roomId" element={<StoryPage />} />
+					<Route path="/register" element={<Register />} />
 					{/* Add more routes as needed */}
 				</Routes>
 			</div>
