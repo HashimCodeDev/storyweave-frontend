@@ -13,8 +13,10 @@ h1 {
 .story-display {
 	margin: 20px 0;
 	padding: 15px;
-	background-color: #f9f9f9;
+	background-color: #524ed1;
 	border-radius: 5px;
+	color: white;
+	opacity: 0.9;
 }
 
 .input-form {

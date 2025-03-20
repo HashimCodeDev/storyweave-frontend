@@ -1,0 +1,39 @@
+/* From Uiverse.io by alexruix */
+.story-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.story-display {
+	width: 40vw;
+	height: 254px;
+	border-radius: 20px;
+	background: #15001f;
+	position: relative;
+	padding: 1.8rem;
+	border: 2px solid #c3c6ce;
+	transition: 0.5s ease-out;
+	overflow: visible;
+}
+.text-body {
+	color: white;
+}
+
+/*Text*/
+.text-title {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+/*Hover*/
+.story-display:hover {
+	border-color: #008bf8;
+	box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.story-display:hover .card-button {
+	transform: translate(-50%, 50%);
+	opacity: 1;
+}

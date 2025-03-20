@@ -66,8 +66,8 @@ function StoryPage({ onSend }) {
 	};
 
 	return (
-		<div>
-			<h1>StoryWeave</h1>
+		<div className="story-page">
+			<h1 style={{ color: "white" }}>StoryWeave</h1>
 			<StoryDisplay story={story} />
 			<InputForm onSend={sendAddition} />
 			{twist && <TwistVoting twist={twist} onVote={sendVote} />}
