@@ -8,7 +8,7 @@ function StoryPage({ onSend }) {
 	const [twistId, setTwistId] = useState(null);
 	const [username, setUsername] = useState("");
 	const [ws, setWs] = useState(null);
-	const url = process.env.BACKEND_URL || "http://localhost:8000";
+	const url = process.env.WEBSOCKET_URL || "localhost:8000";
 
 	useEffect(() => {
 		// Prompt user for a username when the app loads
