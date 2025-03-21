@@ -7,7 +7,7 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
-	const url = process.env.BACKEND_URL || "http://localhost:8000";
+	const url = process.env.BACKEND_URL || "https://storyweave-33ow.onrender.com";
 
 	const navigate = useNavigate();
 
